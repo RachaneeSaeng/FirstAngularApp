@@ -4,12 +4,20 @@
     <title>My First Angular App</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   </head>
-  <body>
-    <div ng-controller="StoreCtrl as str">
-      <h1>{{str.product.name}}</h1>
-      <h2>${{str.product.price}}</h2>
-      <p>{{str.product.description}}</p>
-    </div>
+  <body ng-controller="StoreCtrl as str" >
+    <ul class="list-group">
+      <li class="list-group-item" ng-repeat="product in str.products" ng-hide="product.soldeOut" >
+          <h3>
+            {{product.name}}
+            <em class="pull-right">{{product.price | currency}}</em>
+          </h3>
+          <div class="text-center">
+            <img ng-src="{{product.images[0].full}}" class="text-center" style="width: 300px"></img>
+            <p>{{product.description}}</p>
+            <button ng-show="product.canPurchase">Add To Cart</button>
+          </div>
+      </li>
+    </ul>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="script/app.js"></script>
   </body>
