@@ -3,70 +3,22 @@
   <head>
     <title>My First Angular App</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style/appStyle.css">
   </head>
   <body ng-controller="StoreController as str" >
-    <ul class="list-group">
-      <li class="list-group-item" ng-repeat="product in str.products" ng-hide="product.soldeOut" >
-          <h3>
-            {{product.name}}
-            <em class="pull-right">{{product.price | currency}}</em>
-          </h3>
-          <div class="text-center">
-            <img ng-src="{{product.images[0].full}}" class="text-center" style="width: 300px"></img>
-            <!-- <button ng-show="product.canPurchase">Add To Cart</button> -->
-          </div>
-          <section ng-controller="PanelController as panel">
-            <ul class="nav nav-pills">
-              <li ng-class="{ active: panel.isSelected(1)}">
-                <a href ng-click="panel.selectTab(1)">Description</a>
+      <div class="col-lg-offset-2 col-lg-8">
+          <ul class="list-group">
+              <li class="list-group-item" ng-repeat="product in str.products" ng-hide="product.soldeOut">
+                  <h3>
+                    <product-title></product-title>
+                  </h3>
+                  <product-image></product-image>
+                  <product-panels></product-panels>
               </li>
-              <li ng-class="{ active: panel.isSelected(2)}">
-                <a href ng-click="panel.selectTab(2)">Specification</a>
-              </li>
-              <li ng-class="{ active: panel.isSelected(3)}">
-                <a href ng-click="panel.selectTab(3)">Review</a>
-              </li>
-            </ul>
-
-            <div ng-show="panel.isSelected(1)">
-              <h4>Description</h4>
-              <p>{{product.description}}</p>
-            </div>
-            <div ng-show="panel.isSelected(2)">
-              <h4>Specification</h4>
-              <p>N/A</p>
-            </div>
-            <div ng-show="panel.isSelected(3)">
-              <h4>Reviews</h4>
-              <blockquote ng-repeat="review in product.reviews">
-                <b>Stars: {{review.stars}}</b><br>
-                {{review.body}}<br>
-                <cite>by: {{review.author}}</cite>
-              </blockquote>
-              <form name="reviewForm" ng-controller="ReviewController as review" ng-submit="review.addReview(product)">
-                <blockquote ng-show="review.isInputing()">
-                  <b>Stars: {{review.detail.stars}}</b><br>
-                  {{review.detail.body}}<br>
-                  <cite>--{{review.detail.author}}</cite>
-                </blockquote>
-                <h5><b>Submit a Review</b><h5>
-                <select class="form-control" ng-model="review.detail.stars">
-                  <option value="" disabled selected>Rate the product</option>
-                  <option value="1">1 stars</option>
-                  <option value="2">2 stars</option>
-                  <option value="3">3 stars</option>
-                  <option value="4">4 stars</option>
-                  <option value="5">5 stars</option>
-                </select><br>
-                <textarea class="form-control" ng-model="review.detail.body" placeholder="Write a short review of this product..."></textarea><br>
-                <input class="form-control" ng-model="review.detail.author" type="email" placeholder="product.review@abc.com"/><br>
-                <input class="btn-info" type="submit" value="Submit Review"/>
-              </form>
-            </div>
-          </section>
-      </li>
-    </ul>
+          </ul>
+      </div>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="script/app.js"></script>
+    <script src="script/productDirective.js"></script>
   </body>
 </html>
